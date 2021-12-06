@@ -2,15 +2,11 @@ package com.example.fifaprofitapp.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Card {
@@ -20,6 +16,12 @@ public class Card {
     private Long id;
     private String surname;
     private int overall;
+    @Enumerated(EnumType.STRING)
     private CardType cardType;
 
+    public Card(String surname, int overall, CardType cardType) {
+        this.surname = surname;
+        this.overall = overall;
+        this.cardType = cardType;
+    }
 }

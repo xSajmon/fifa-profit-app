@@ -17,7 +17,7 @@ public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Card card;
     private LocalDate saleDate;
     private int buyingPrice;
