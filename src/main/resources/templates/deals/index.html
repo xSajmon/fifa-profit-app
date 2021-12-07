@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Deals List</title>
+</head>
+<body>
+<h1> Deals List </h1>
+<table>
+<tr>
+    <td>ID</td>
+    <td>Player Name</td>
+    <td>Version</td>
+    <td>Buying Price</td>
+    <td>Selling Price</td>
+    <td>Sale Date</td>
+    <td>Profit</td>
+</tr>
+    <tr th:each="deal : ${deals}">
+        <td th:text="${deal.id}"></td>
+        <td th:text="${deal.card.surname}"></td>
+        <td th:text="${deal.card.cardType}"></td>
+        <td th:text="${deal.buyingPrice}"></td>
+        <td th:text="${deal.sellingPrice}"></td>
+        <td th:text="${deal.saleDate}"></td>
+        <td th:text="${deal.profit}"></td>
+<!--        <td th:text="${deals.card.name}"></td>-->
+<!--        <td th:text="${deals.id}"></td>-->
+    </tr>
+</table>
+
+
+
+
+</body>
+</html>
