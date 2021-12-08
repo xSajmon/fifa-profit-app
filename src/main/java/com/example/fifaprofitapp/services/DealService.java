@@ -13,6 +13,7 @@ public interface DealService {
     void updateDeal(Long id, Deal deal);
     void deleteDeal(Long id);
     Collection<Deal> getDeals();
+    Collection<Deal> findAllByPlayer(String player);
 
 
 

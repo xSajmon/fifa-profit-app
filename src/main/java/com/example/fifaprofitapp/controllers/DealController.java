@@ -5,14 +5,12 @@ import com.example.fifaprofitapp.domain.Deal;
 import com.example.fifaprofitapp.services.DealService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @Controller
+@RequestMapping("/deals/add")
 public class DealController {
 
     private final DealService dealService;
@@ -27,16 +25,20 @@ public class DealController {
         return dealService.getDeals();
     }
 
-
-    @GetMapping("/deals/add")
-    public String addDeal(Model model){
+    @GetMapping
+    public String addDeal(Model model, String surname){
         model.addAttribute("deal", new Deal());
-        model.addAttribute("deals", dealService.getDeals());
+        if (surname == null) {
+            model.addAttribute("deals", dealService.getDeals());
+        } else {
+            model.addAttribute("deals", dealService.findAllByPlayer(surname));
+        }
         return "deals/add";
     }
 
-   @PostMapping("/deals/add")
-    public String saveDeal(@ModelAttribute("deal") Deal deal, Model model){
+
+   @PostMapping
+    public String saveDeal(@ModelAttribute("deal") Deal deal){
         dealService.saveDeal(deal);
         return "redirect:/deals/add";
    }

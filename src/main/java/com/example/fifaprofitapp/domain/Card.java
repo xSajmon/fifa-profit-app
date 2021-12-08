@@ -12,14 +12,15 @@ import javax.persistence.*;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String surname;
     private int overall;
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 
-    public Card(String surname, int overall, CardType cardType) {
+    public Card(Long id, String surname, int overall, CardType cardType) {
+        this.id = id;
         this.surname = surname;
         this.overall = overall;
         this.cardType = cardType;

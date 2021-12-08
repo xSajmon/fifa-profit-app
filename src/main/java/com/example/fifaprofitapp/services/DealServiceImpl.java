@@ -2,14 +2,13 @@ package com.example.fifaprofitapp.services;
 
 import com.example.fifaprofitapp.domain.Deal;
 import com.example.fifaprofitapp.repositories.DealRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
 @Service
-public class DealServiceImpl implements DealService{
+public class DealServiceImpl implements DealService {
 
     private final DealRepository dealRepository;
 
@@ -42,4 +41,8 @@ public class DealServiceImpl implements DealService{
         return dealRepository.findAll();
     }
 
+    @Override
+    public Collection<Deal> findAllByPlayer(String surname) {
+        return dealRepository.findAllByCardSurname(surname);
+    }
 }

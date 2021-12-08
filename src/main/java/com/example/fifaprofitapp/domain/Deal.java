@@ -15,7 +15,7 @@ public class Deal {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     private Card card;
@@ -25,7 +25,8 @@ public class Deal {
     @Transient
     private double profit;
 
-    public Deal(Card card,int buyingPrice, int sellingPrice) {
+    public Deal(Long id, Card card,int buyingPrice, int sellingPrice) {
+        this.id = id;
         this.card = card;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;
