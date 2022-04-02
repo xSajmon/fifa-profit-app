@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -26,14 +26,16 @@
             <div class="form-row pb-0">
                 <div class="col">
                     <label class="form-label" for="ovr">Overall:</label>
-                    <input type="number" class="form-control form-control-sm" id="ovr" th:field="*{card.overall}"/>
+                    <select th:field="*{card.overall}" class="form-control form-control-sm" id="ovr">
+                        <option th:each="i: ${#numbers.sequence(99,75)}" th:value="${i}" th:text="${i}"></option>
+                    </select>
 
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="type">Type:</label>
                         <select id="type" class="form-control form-control-sm" th:field="*{card.cardType}">
-                            <option value="" hidden>Type</option>
+                            <option value="" hidden></option>
                             <option th:each="type: ${T(com.example.fifaprofitapp.domain.CardType).values()}"
                                     th:value="${type}" th:text="${type}"></option>
                         </select>
