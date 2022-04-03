@@ -1,8 +1,12 @@
 package com.example.fifaprofitapp.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -14,8 +18,10 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Surname cannot be null.")
     private String surname;
     private int overall;
+    @NotNull(message = "Choose type!")
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 

@@ -5,14 +5,15 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.List;
 
 @Repository
 public interface DealRepository extends CrudRepository<Deal, Long> {
 
     @Override
     long count();
+
     @Override
     Collection<Deal> findAll();
+
     Collection<Deal> findAllByCardSurname(String surname);
 }
