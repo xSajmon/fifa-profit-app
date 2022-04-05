@@ -11,9 +11,9 @@
     />
 </head>
 <body>
-<div class="container m-3 d-flex ">
+<div class="container d-flex justify-content-center mt-5">
 
-    <div class=" float-left w-25 mr-5">
+    <div class="float-left  w-25 mr-5">
         <h3>Insert data:</h3>
         <hr class="solid col">
         <form class="form-horizontal" action="#" th:action="@{/deals/add}" th:object="${deal}" method="post">
@@ -84,27 +84,35 @@
     </div>
     <div class="float-left ml-5">
         <h3 class="text-center text-uppercase font-weight-bold mb-3"> Deals List </h3>
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered text-center">
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>Player Name</th>
+                <th class="text-nowrap">Player Name</th>
                 <th>Version</th>
-                <th>Buying Price</th>
-                <th>Selling Price</th>
+                <th>Bought</th>
+                <th>Sold</th>
                 <th>Sale Date</th>
                 <th>Profit</th>
+                <th>Operation</th>
             </tr>
             </thead>
 
             <tr th:each="deal : ${deals}">
                 <td th:text="${deal.id}"></td>
-                <td th:text="${deal.card.surname}"></td>
+                <td th:text="${deal.card.surname}" class="col-md-3"></td>
                 <td th:text="${deal.card.cardType}"></td>
-                <td th:text="${deal.buyingPrice}"></td>
+                <td th:text="${deal.buyingPrice}" ></td>
                 <td th:text="${deal.sellingPrice}"></td>
-                <td th:text="${deal.saleDate}"></td>
+                <td th:text="${deal.saleDate}" class="col-md-9"></td>
                 <td th:text="${deal.profit}"></td>
+                <td>
+                    <div class="col">
+                        <button  type="submit" class="btn btn-primary btn-sm btn-block" >Modify</button>
+                        <button  type="submit" class="btn btn-danger btn-sm btn-block">Delete</button>
+
+                    </div>
+                </td>
             </tr>
         </table>
     </div>

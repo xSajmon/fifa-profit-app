@@ -45,7 +45,7 @@ public class Deal {
     }
 
     public double getProfit() {
-        return sellingPrice * 0.95 - buyingPrice;
+        return Math.round(sellingPrice * 0.95 - buyingPrice);
     }
 
 

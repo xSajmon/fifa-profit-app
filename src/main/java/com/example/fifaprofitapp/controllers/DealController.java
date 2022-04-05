@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Collection;
 
@@ -40,13 +41,16 @@ public class DealController {
 
 
     @PostMapping
-    public String saveDeal(@Valid @ModelAttribute("deal") Deal deal, BindingResult result) {
+    public String saveDeal(@Valid @ModelAttribute("deal") Deal deal,
+                           BindingResult result,
+                           HttpServletRequest request) {
         if (result.hasErrors()) {
-            return "redirect:/deals/add";
+            return "redirect:"+ request.getRequestURI();
         }
         dealService.saveDeal(deal);
-        return "redirect:";
+        return "redirect:/deals/add";
     }
+
 
 
 }
