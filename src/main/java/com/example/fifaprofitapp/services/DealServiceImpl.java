@@ -33,7 +33,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public void deleteDeal(Long id) {
-
+        dealRepository.deleteById(id);
     }
 
     @Override

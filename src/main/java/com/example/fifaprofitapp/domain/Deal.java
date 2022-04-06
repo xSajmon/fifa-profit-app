@@ -9,7 +9,11 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 @Entity
@@ -27,7 +31,7 @@ public class Deal {
     @OneToOne(cascade = CascadeType.ALL)
     @Valid
     private Card card;
-    private LocalDate saleDate = LocalDate.now();
+    private String saleDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
     @NotNull(message = "Enter buying price.")
     @Positive(message = "Incorrect buying price")
     private int buyingPrice;
@@ -45,8 +49,13 @@ public class Deal {
     }
 
     public double getProfit() {
-        return Math.round(sellingPrice * 0.95 - buyingPrice);
+        double x = sellingPrice * 0.95 - buyingPrice;
+        BigDecimal vd = new BigDecimal(x).setScale(2, RoundingMode.HALF_UP);
+        return vd.doubleValue();
+
     }
+
+
 
 
 }

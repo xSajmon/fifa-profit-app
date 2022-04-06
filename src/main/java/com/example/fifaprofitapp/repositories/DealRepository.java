@@ -16,4 +16,6 @@ public interface DealRepository extends CrudRepository<Deal, Long> {
     Collection<Deal> findAll();
 
     Collection<Deal> findAllByCardSurname(String surname);
+
+    void deleteById(Long id);
 }

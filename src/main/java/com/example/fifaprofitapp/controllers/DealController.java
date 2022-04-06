@@ -51,6 +51,12 @@ public class DealController {
         return "redirect:/deals/add";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteDeal(@PathVariable("id") Long id){
+        dealService.deleteDeal(id);
+        return "redirect:/deals/add";
+    }
+
 
 
 }
