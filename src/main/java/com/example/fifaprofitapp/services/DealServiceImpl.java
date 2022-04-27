@@ -45,4 +45,9 @@ public class DealServiceImpl implements DealService {
     public Collection<Deal> findAllByPlayer(String surname) {
         return dealRepository.findAllByCardSurname(surname);
     }
+
+    @Override
+    public double calculateTotalProfit() {
+        return dealRepository.findAll().stream().mapToDouble(Deal::getProfit).sum();
+    }
 }

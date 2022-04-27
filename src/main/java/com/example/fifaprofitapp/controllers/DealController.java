@@ -36,6 +36,7 @@ public class DealController {
         } else {
             model.addAttribute("deals", dealService.findAllByPlayer(surname));
         }
+        model.addAttribute("sum", dealService.calculateTotalProfit());
         return "deals/add";
     }
 
