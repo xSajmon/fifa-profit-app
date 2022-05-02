@@ -21,6 +21,7 @@ public interface DealService {
     Collection<Deal> findAllByPlayer(String player);
 
     double calculateTotalProfit();
+    double calculateTotalProfit(String player);
 
 
 }

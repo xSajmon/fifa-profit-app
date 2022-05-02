@@ -33,10 +33,12 @@ public class DealController {
         model.addAttribute("deal", new Deal());
         if (surname == null) {
             model.addAttribute("deals", dealService.getDeals());
+            model.addAttribute("sum", dealService.calculateTotalProfit());
         } else {
             model.addAttribute("deals", dealService.findAllByPlayer(surname));
+            model.addAttribute("sum", dealService.calculateTotalProfit(surname));
         }
-        model.addAttribute("sum", dealService.calculateTotalProfit());
+
         return "deals/add";
     }
 

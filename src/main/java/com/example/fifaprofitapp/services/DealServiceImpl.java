@@ -50,4 +50,8 @@ public class DealServiceImpl implements DealService {
     public double calculateTotalProfit() {
         return dealRepository.findAll().stream().mapToDouble(Deal::getProfit).sum();
     }
+    @Override
+    public double calculateTotalProfit(String player) {
+        return dealRepository.findAllByCardSurname(player).stream().mapToDouble(Deal::getProfit).sum();
+    }
 }
