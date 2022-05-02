@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/deals/add")
@@ -31,12 +32,15 @@ public class DealController {
     @GetMapping
     public String addDeal(Model model, String surname) {
         model.addAttribute("deal", new Deal());
-        if (surname == null) {
-            model.addAttribute("deals", dealService.getDeals());
-            model.addAttribute("sum", dealService.calculateTotalProfit());
-        } else {
+        Optional<String> opt = Optional.ofNullable(surname);
+        if(opt.isPresent()){
             model.addAttribute("deals", dealService.findAllByPlayer(surname));
             model.addAttribute("sum", dealService.calculateTotalProfit(surname));
+            model.addAttribute("num", dealService.findAllByPlayer(surname).size());
+        }else{
+            model.addAttribute("deals", dealService.getDeals());
+            model.addAttribute("sum", dealService.calculateTotalProfit());
+            model.addAttribute("num", dealService.getDeals().size());
         }
 
         return "deals/add";

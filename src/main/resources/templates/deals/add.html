@@ -116,12 +116,15 @@
                 </td>
             </tr>
         </table>
-        <div>
-
-            <p class="col-sm border text-right table-dark font-weight-bold p-1 pr-2">
+        <div class="col-sm border text-right table-dark font-weight-bold p-1 pl-2 pr-2">
+            <div class="float-left">
+                <i class="bi bi-person-check-fill float-left h6"></i>
+                <span th:text="'| Number of records: ' + ${num}" class="float-left pl-1"></span>
+             </div>
+            <div>
                 <i class="bi bi-wallet-fill"></i>
                 <span th:text="' | Total profit: ' +  ${sum} + 'k'"></span>
-            </p>
+            </div>
         </div>
     </div>
 </div>
