@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -34,10 +35,12 @@ public class Deal {
     private String saleDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
     @NotNull(message = "Enter buying price.")
     @Positive(message = "Incorrect buying price")
-    private int buyingPrice;
+    @Digits(integer = 4, fraction = 2)
+    private double buyingPrice;
     @NotNull(message = "Enter selling price.")
     @Positive(message = "Incorrect selling price")
-    private int sellingPrice;
+    @Digits(integer = 4, fraction = 2)
+    private double sellingPrice;
     @Transient
     private double profit;
 
