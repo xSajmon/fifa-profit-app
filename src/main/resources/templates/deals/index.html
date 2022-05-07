@@ -16,7 +16,7 @@
     <div class="float-left  w-25 mr-5">
         <h3>Insert data:</h3>
         <hr class="solid col">
-        <form class="form-horizontal" action="#" th:action="@{/deals/add}" th:object="${deal}" method="post">
+        <form class="form-horizontal" action="#" th:action="@{/deals/index}" th:object="${deal}" method="post">
 
             <div class="form-row m-0 pb-2">
                 <label for="surname">Surname:</label>
@@ -65,7 +65,7 @@
 
         <hr class="solid col mb-5">
 
-        <form class="form-inlines w-100" th:action="@{/deals/add}">
+        <form class="form-inlines w-100" th:action="@{/deals/index}">
             <div class="row">
                 <div class="col-md-11">
                     <div class="form-group">
@@ -98,7 +98,7 @@
             </tr>
             </thead>
 
-            <tr th:each="deal : ${deals}">
+            <tr th:each="deal : ${deals}"  th:unless="${#lists.isEmpty(deals)}">
                 <td th:text="${deal.id}+'.'" class="align-middle"></td>
                 <td th:text="${deal.card.surname}" class="col-md-2 align-middle"></td>
                 <td th:text="${deal.card.cardType}" class="align-middle"></td>
@@ -113,10 +113,14 @@
                     <div class="col">
                         <a class="btn btn-primary btn-sm btn-block text-white" data-bs-toggle="modal" data-bs-target="#editModal">Modify</a>
 
-                        <a th:href ="@{/deals/add/delete/{id}(id=${deal.id})}" class="btn btn-danger btn-sm btn-block">Delete</a>
+                        <a th:href ="@{/deals/index/delete/{id}(id=${deal.id})}" class="btn btn-danger btn-sm btn-block">Delete</a>
 
                     </div>
                 </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(deals)}">
+                <td th:colspan="8">No records in database.</td>
             </tr>
         </table>
         <div class="col-sm border text-right table-dark font-weight-bold p-1 pl-2 pr-2">
