@@ -12,7 +12,7 @@
     <div class="float-left w-25  mx-5">
         <fieldset class="border p-3">
             <legend class="w-auto float-none text-secondary">INSERT DATA</legend>
-            <form th:action="@{/deals/index}" method="post" th:object="${deal}">
+            <form action="#" th:action="@{/deals/index}" method="post" th:object="${deal}">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control form-control-sm" th:field="*{card.surname}" id="surname"
                            placeholder="surname"/>
@@ -50,12 +50,11 @@
 
         <fieldset class="border p-3">
             <legend class="w-auto float-none text-secondary">FIND</legend>
-            <form th:action="@{/deals/index}">
+            <form method="get" th:action="@{/deals/index}">
                 <div class="row">
                     <div class="col-10 ">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="findBySurname"
-                                   required>
+                            <input type="text" class="form-control" name="surname" id="findBySurname">
                             <label for="findBySurname">BY SURNAME:</label>
                         </div>
                     </div>
@@ -102,8 +101,10 @@
                         <div class="col">
                             <a class="btn btn-primary btn-sm btn-block text-white" data-bs-toggle="modal"
                                data-bs-target="#editModal">Modify</a>
-                            <a th:href="@{/deals/index/delete/{id}(id=${deal.id})}"
-                               class="btn btn-danger btn-sm btn-block">Delete</a>
+
+                            <form th:method="delete" th:action="@{/deals/index/delete/{id}(id=${deal.id})} ">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </div>
                     </td>
                 </tr>

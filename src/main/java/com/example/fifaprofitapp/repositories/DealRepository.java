@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface DealRepository extends CrudRepository<Deal, Long> {
@@ -15,8 +16,8 @@ public interface DealRepository extends CrudRepository<Deal, Long> {
     long count();
 
     @Override
-    Collection<Deal> findAll();
-    Collection<Deal> findAllByCardSurname(String surname);
+    List<Deal> findAll();
+    List<Deal> findAllByCardSurname(String surname);
 
     void deleteById(Long id);
 

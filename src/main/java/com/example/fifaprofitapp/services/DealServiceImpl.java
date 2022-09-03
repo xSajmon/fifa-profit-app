@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DealServiceImpl implements DealService {
@@ -19,6 +19,17 @@ public class DealServiceImpl implements DealService {
     public DealServiceImpl(DealRepository dealRepository) {
         this.dealRepository = dealRepository;
     }
+
+    @Override
+    public List<Deal> getDeals(Optional<String> name) {
+        return name.isPresent() ? dealRepository.findAllByCardSurname(name.get()) : dealRepository.findAll();
+    }
+
+    @Override
+    public double calculateTotalProfit(List<Deal> dealList){
+        return dealList.stream().mapToDouble(Deal::getProfit).sum();
+    }
+
 
     @Override
     public void saveDeal(Deal deal) {
@@ -40,24 +51,8 @@ public class DealServiceImpl implements DealService {
         dealRepository.deleteById(id);
     }
 
-    @Override
-    public Collection<Deal> getDeals() {
-        return dealRepository.findAll();
-    }
 
-    @Override
-    public Collection<Deal> findAllByPlayer(String surname) {
-        return dealRepository.findAllByCardSurname(surname);
-    }
 
-    @Override
-    public double calculateTotalProfit() {
-        return dealRepository.findAll().stream().mapToDouble(Deal::getProfit).sum();
-    }
-    @Override
-    public double calculateTotalProfit(String player) {
-        return dealRepository.findAllByCardSurname(player).stream().mapToDouble(Deal::getProfit).sum();
-    }
 
     @Override
     public Page<Deal> findPaginated(int pageNo, int pageSize) {

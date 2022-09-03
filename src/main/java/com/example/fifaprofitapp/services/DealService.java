@@ -5,9 +5,13 @@ import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface DealService {
+
+    List<Deal> getDeals(Optional<String> name);
+    double calculateTotalProfit(List<Deal> dealList);
 
     void saveDeal(Deal deal);
 
@@ -17,11 +21,11 @@ public interface DealService {
 
     void deleteDeal(Long id);
 
-    Collection<Deal> getDeals();
-    Collection<Deal> findAllByPlayer(String player);
 
-    double calculateTotalProfit();
-    double calculateTotalProfit(String player);
+
+
+
+
 
     Page<Deal> findPaginated(int pageNum, int pageSize);
 
