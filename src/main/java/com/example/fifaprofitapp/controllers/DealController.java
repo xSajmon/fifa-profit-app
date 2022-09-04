@@ -56,6 +56,11 @@ public class DealController {
         return "redirect:/deals/index";
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Deal findDealById(@PathVariable Long id){
+        return dealService.findDealById(id);
+    }
 
     @ModelAttribute("allCardTypes")
     public List<String> getTypes(){

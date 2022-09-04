@@ -30,6 +30,9 @@ public class DealServiceImpl implements DealService {
         return dealList.stream().mapToDouble(Deal::getProfit).sum();
     }
 
+    public Deal findDealById(Long id){
+       return dealRepository.findDealById(id);
+    }
 
     @Override
     public void saveDeal(Deal deal) {

@@ -19,6 +19,8 @@ public interface DealRepository extends CrudRepository<Deal, Long> {
     List<Deal> findAll();
     List<Deal> findAllByCardSurname(String surname);
 
+    Deal findDealById(Long id);
+
     void deleteById(Long id);
 
     Page<Deal> findAll(Pageable pageable);

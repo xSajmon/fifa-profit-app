@@ -12,6 +12,7 @@ public interface DealService {
 
     List<Deal> getDeals(Optional<String> name);
     double calculateTotalProfit(List<Deal> dealList);
+    Deal findDealById(Long id);
 
     void saveDeal(Deal deal);
 
@@ -20,6 +21,8 @@ public interface DealService {
     void updateDeal(Long id, Deal deal);
 
     void deleteDeal(Long id);
+
+
 
 
 
