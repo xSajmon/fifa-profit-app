@@ -1,6 +1,8 @@
 package com.example.fifaprofitapp.controllers;
 
 
+import com.example.fifaprofitapp.domain.Card;
+import com.example.fifaprofitapp.domain.CardType;
 import com.example.fifaprofitapp.domain.Deal;
 import com.example.fifaprofitapp.services.DealService;
 import org.springframework.stereotype.Controller;
@@ -9,8 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/deals/index")
@@ -51,6 +56,11 @@ public class DealController {
         return "redirect:/deals/index";
     }
 
+
+    @ModelAttribute("allCardTypes")
+    public List<String> getTypes(){
+        return Stream.of(CardType.values()).map(CardType::name).collect(Collectors.toList());
+    }
 
 
 

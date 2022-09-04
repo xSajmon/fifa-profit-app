@@ -22,14 +22,14 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">Rating:</span>
-                    <select th:field="*{card.overall}" class="form-control form-control-sm " id="rating">
+                    <select th:field="*{card.overall}" class="form-control form-control-sm" id="rating">
                         <option th:each="i: ${#numbers.sequence(99,75)}" th:value="${i}"
                                 th:text="${i}"></option>
                     </select>
                     <span class="input-group-text">Type:</span>
                     <select id="type" class="form-control form-control-sm" th:field="*{card.cardType}">
                         <option value="" hidden></option>
-                        <option th:each="type: ${T(com.example.fifaprofitapp.domain.CardType).values()}"
+                        <option th:each="type: ${allCardTypes}"
                                 th:value="${type}" th:text="${type}"></option>
                     </select>
                 </div>
@@ -128,7 +128,7 @@
                                                     <span class="input-group-text">Type:</span>
                                                     <select id="modalType" class="form-control form-control-sm">
                                                         <option value="" hidden></option>
-                                                        <option th:each="type: ${T(com.example.fifaprofitapp.domain.CardType).values()}"
+                                                        <option th:each="type: ${allCardTypes}"
                                                                 th:value="${type}" th:text="${type}"></option>
                                                     </select>
                                                 </div>
