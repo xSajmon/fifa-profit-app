@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <div class="container d-flex justify-content-center mt-5">
     <div class="float-left w-25  mx-5">
         <fieldset class="border p-3">
@@ -98,12 +99,59 @@
                         <span th:unless="${deal.profit} > 0" th:text="${deal.profit}" class="text-danger"></span>
                     </td>
                     <td>
-                        <div class="col">
-                            <a class="btn btn-primary btn-sm btn-block text-white" data-bs-toggle="modal"
-                               data-bs-target="#editModal">Modify</a>
+                        <div class="col d-flex mx-2">
+                            <button type="button"class="btn btn-primary btn-sm float-start me-2"
+                                    data-bs-toggle="modal" data-bs-target="#editModal">Modify</button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit transaction</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="#">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control form-control-sm" id="modalSurname"
+                                                           placeholder="surname"/>
+                                                    <label class="form-label" for="modalSurname">Surname</label>
+                                                </div>
+
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">Rating:</span>
+                                                    <select class="form-control form-control-sm " id="modalRating">
+                                                        <option th:each="i: ${#numbers.sequence(99,75)}" th:value="${i}"
+                                                                th:text="${i}"></option>
+                                                    </select>
+                                                    <span class="input-group-text">Type:</span>
+                                                    <select id="modalType" class="form-control form-control-sm">
+                                                        <option value="" hidden></option>
+                                                        <option th:each="type: ${T(com.example.fifaprofitapp.domain.CardType).values()}"
+                                                                th:value="${type}" th:text="${type}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">Bought: </span>
+                                                    <input type="number" step="any" class="form-control form-control-sm"/>
+                                                    <span class="input-group-text">Sold:</span>
+                                                    <input type="number" step="any" class="form-control form-control-sm"/>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <form th:method="delete" th:action="@{/deals/index/delete/{id}(id=${deal.id})} ">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm ">Delete</button>
                             </form>
                         </div>
                     </td>
@@ -127,6 +175,7 @@
             </table>
         </fieldset>
     </div>
+
 </div>
 </body>
 </html>
