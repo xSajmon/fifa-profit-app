@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
 <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
 <script type="text/javascript" th:src="@{../static/js/main.js}" src="/static/js/main.js"></script>
 <div class="container d-flex justify-content-center mt-5">
@@ -102,23 +104,34 @@
                     </td>
                     <td>
                         <div class="col d-flex mx-2">
-                            <a th:href="@{/deals/index/{id}(id=${deal.id})}" class="btn btn-primary btn-sm float-start me-2 mBtn">Modify</a>
+                            <a th:href="@{/deals/index/{id}(id=${deal.id})}"
+                               class="btn btn-primary btn-sm float-start me-2 mBtn">Modify</a>
                             <!-- Modal -->
-                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Edit transaction </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="#">
-                                                <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control form-control-sm" id="modalSurname"
-                                                           placeholder="surname"/>
-                                                    <label class="form-label" for="modalSurname">Surname</label>
-                                                </div>
+                                            <form action="#" id="updateForm">
+                                                <div class="row mb-3">
+                                                    <div class="form-floating col-2">
+                                                        <input type="text" class="form-control form-control-sm"
+                                                               id="modalId" placeholder="Id"/>
+                                                        <label class="form-label" for="modalSurname">Id</label>
+                                                    </div>
+                                                    <div class="form-floating col-10">
+                                                        <input type="text" class="form-control form-control-sm"
+                                                               id="modalSurname"
+                                                               placeholder="surname"/>
+                                                        <label class="form-label" for="modalSurname">Surname</label>
+                                                    </div>
 
+                                                </div>
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">Rating:</span>
                                                     <select class="form-control form-control-sm " id="modalRating">
@@ -135,15 +148,21 @@
 
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">Bought: </span>
-                                                    <input id="modalBp" type="number" step="any" class="form-control form-control-sm"/>
+                                                    <input id="modalBp" type="number" step="any"
+                                                           class="form-control form-control-sm"/>
                                                     <span class="input-group-text">Sold:</span>
-                                                    <input id="modalSp" type="number" step="any" class="form-control form-control-sm"/>
+                                                    <input id="modalSp" type="number" step="any"
+                                                           class="form-control form-control-sm"/>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button form="updateForm" type="submit" class="btn btn-primary">Save
+                                                changes
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

@@ -5,6 +5,7 @@ import com.example.fifaprofitapp.domain.Card;
 import com.example.fifaprofitapp.domain.CardType;
 import com.example.fifaprofitapp.domain.Deal;
 import com.example.fifaprofitapp.services.DealService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,6 +36,7 @@ public class DealController {
         double totalProfit = dealService.calculateTotalProfit(list);
 
         model.addAttribute("deal", new Deal());
+        model.addAttribute("dealToUpdate", new Deal());
         model.addAttribute("deals", list);
         model.addAttribute("sum", totalProfit);
         model.addAttribute("num", list.size());
@@ -53,6 +56,14 @@ public class DealController {
     @DeleteMapping("/delete/{id}")
     public String deleteDeal(@PathVariable Long id){
         dealService.deleteDeal(id);
+        return "redirect:/deals/index";
+    }
+
+    @PutMapping("/update/{id}")
+    public String updateDeal(@PathVariable Long id, @RequestBody Deal deal){
+        Deal toUpdate = dealService.findDealById(id);
+        BeanUtils.copyProperties(deal, toUpdate, "id", "saleDate");
+        dealService.saveDeal(toUpdate);
         return "redirect:/deals/index";
     }
 

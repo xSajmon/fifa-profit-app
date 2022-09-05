@@ -22,7 +22,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<Deal> getDeals(Optional<String> name) {
-        return name.isPresent() ? dealRepository.findAllByCardSurname(name.get()) : dealRepository.findAll();
+        return (name.isPresent() ? dealRepository.findAllByCardSurname(name.get()) : dealRepository.findAll());
     }
 
     @Override
