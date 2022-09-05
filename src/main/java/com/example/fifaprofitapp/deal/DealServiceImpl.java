@@ -1,7 +1,8 @@
-package com.example.fifaprofitapp.services;
+package com.example.fifaprofitapp.deal;
 
-import com.example.fifaprofitapp.domain.Deal;
-import com.example.fifaprofitapp.repositories.DealRepository;
+import com.example.fifaprofitapp.deal.Deal;
+import com.example.fifaprofitapp.deal.DealRepository;
+import com.example.fifaprofitapp.deal.DealService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

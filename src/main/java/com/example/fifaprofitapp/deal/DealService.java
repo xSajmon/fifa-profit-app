@@ -1,9 +1,8 @@
-package com.example.fifaprofitapp.services;
+package com.example.fifaprofitapp.deal;
 
-import com.example.fifaprofitapp.domain.Deal;
+import com.example.fifaprofitapp.deal.Deal;
 import org.springframework.data.domain.Page;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

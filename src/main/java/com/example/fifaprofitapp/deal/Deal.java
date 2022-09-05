@@ -1,5 +1,6 @@
-package com.example.fifaprofitapp.domain;
+package com.example.fifaprofitapp.deal;
 
+import com.example.fifaprofitapp.card.Card;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -29,8 +29,9 @@ public class Deal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
     @Valid
+    @Embedded
     private Card card;
     private String saleDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
     @NotNull(message = "Enter buying price.")

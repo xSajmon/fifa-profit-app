@@ -1,4 +1,4 @@
-package com.example.fifaprofitapp.domain;
+package com.example.fifaprofitapp.card;
 
 
 public enum CardType {

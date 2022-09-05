@@ -1,10 +1,7 @@
-package com.example.fifaprofitapp.controllers;
+package com.example.fifaprofitapp.deal;
 
 
-import com.example.fifaprofitapp.domain.Card;
-import com.example.fifaprofitapp.domain.CardType;
-import com.example.fifaprofitapp.domain.Deal;
-import com.example.fifaprofitapp.services.DealService;
+import com.example.fifaprofitapp.card.CardType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
