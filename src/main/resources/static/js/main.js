@@ -35,7 +35,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'PUT',
-            url:"/deals/index/update/" + $('#modalId').val(),
+            url:"/deals/update/" + $('#modalId').val(),
             contentType: "application/json",
             data: JSON.stringify(data),
             dataType: 'json',

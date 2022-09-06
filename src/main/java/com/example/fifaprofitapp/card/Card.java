@@ -16,7 +16,7 @@ public class Card {
     @NotNull(message = "Surname cannot be null.")
     private String surname;
     private int overall;
-    @NotNull(message = "Choose type!")
+    @NotNull(message = "Choose your card type.")
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 

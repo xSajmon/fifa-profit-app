@@ -17,7 +17,7 @@
     <div class="float-left w-25  mx-5">
         <fieldset class="border p-3">
             <legend class="w-auto float-none text-secondary">INSERT DATA</legend>
-            <form action="#" th:action="@{/deals/index}" method="post" th:object="${deal}">
+            <form action="#" th:action="@{/deals}" method="post" th:object="${deal}">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control form-control-sm" th:field="*{card.surname}" id="surname"
                            placeholder="surname"/>
@@ -55,7 +55,7 @@
 
         <fieldset class="border p-3">
             <legend class="w-auto float-none text-secondary">FIND</legend>
-            <form method="get" th:action="@{/deals/index}">
+            <form method="get" th:action="@{/deals}">
                 <div class="row">
                     <div class="col-10 ">
                         <div class="form-floating">
@@ -91,7 +91,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="deal : ${deals}" th:unless="${#lists.isEmpty(deals)}" class="align-middle">
+                <tr th:each="deal : ${deals}" class="align-middle">
                     <td th:text="${deal.id}+'.'"></td>
                     <td th:text="${deal.card.surname}"></td>
                     <td th:text="${deal.card.cardType}"></td>
@@ -104,7 +104,7 @@
                     </td>
                     <td>
                         <div class="col d-flex mx-2">
-                            <a th:href="@{/deals/index/{id}(id=${deal.id})}"
+                            <a th:href="@{/deals/{id}(id=${deal.id})}"
                                class="btn btn-primary btn-sm float-start me-2 mBtn">Modify</a>
                             <!-- Modal -->
                             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -169,7 +169,7 @@
                             </div>
 
 
-                            <form th:method="delete" th:action="@{/deals/index/delete/{id}(id=${deal.id})} ">
+                            <form th:method="delete" th:action="@{/deals/delete/{id}(id=${deal.id})} ">
                                 <button type="submit" class="btn btn-danger btn-sm ">Delete</button>
                             </form>
                         </div>

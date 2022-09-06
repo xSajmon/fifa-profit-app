@@ -29,7 +29,6 @@ public class Deal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Valid
     @Embedded
     private Card card;
@@ -39,7 +38,7 @@ public class Deal {
     @Digits(integer = 4, fraction = 2)
     private double buyingPrice;
     @NotNull(message = "Enter selling price.")
-    @Positive(message = "Incorrect selling price")
+    @Positive(message = "Incorrect selling price.")
     @Digits(integer = 4, fraction = 2)
     private double sellingPrice;
     @Transient

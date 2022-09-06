@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping("/deals/index")
+@RequestMapping("/deals")
 public class DealController {
 
     private final DealService dealService;
@@ -29,29 +30,33 @@ public class DealController {
 
         List<Deal> list = dealService.getDeals(surname);
         double totalProfit = dealService.calculateTotalProfit(list);
-
-        model.addAttribute("deal", new Deal());
-        model.addAttribute("dealToUpdate", new Deal());
+        Deal deal = Optional.ofNullable((Deal)model.getAttribute("deal")).orElse(new Deal());
+        model.addAttribute("deal", deal);
         model.addAttribute("deals", list);
         model.addAttribute("sum", totalProfit);
         model.addAttribute("num", list.size());
-
-        return "deals/index";
+        return "deals";
     }
 
     @PostMapping
     public String saveDeal(@ModelAttribute("deal") @Valid Deal deal,
                            BindingResult result,
+                           RedirectAttributes redirectAttributes,
                            Model model) {
+
+        if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("deal", deal);
+            return "redirect:/deals";
+        }
         dealService.saveDeal(deal);
         model.addAttribute("deal", new Deal());
-        return "redirect:/deals/index";
+        return "redirect:/deals";
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteDeal(@PathVariable Long id){
         dealService.deleteDeal(id);
-        return "redirect:/deals/index";
+        return "redirect:/deals";
     }
 
     @PutMapping("/update/{id}")
@@ -59,7 +64,7 @@ public class DealController {
         Deal toUpdate = dealService.findDealById(id);
         BeanUtils.copyProperties(deal, toUpdate, "id", "saleDate");
         dealService.saveDeal(toUpdate);
-        return "redirect:/deals/index";
+        return "redirect:/deals";
     }
 
     @GetMapping("/{id}")
