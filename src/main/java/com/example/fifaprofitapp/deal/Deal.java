@@ -34,7 +34,7 @@ public class Deal {
     private Card card;
     private String saleDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
     @NotNull(message = "Enter buying price.")
-    @Positive(message = "Incorrect buying price")
+    @Positive(message = "Incorrect buying price.")
     @Digits(integer = 4, fraction = 2)
     private double buyingPrice;
     @NotNull(message = "Enter selling price.")

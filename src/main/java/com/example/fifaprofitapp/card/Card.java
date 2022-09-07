@@ -3,6 +3,7 @@ package com.example.fifaprofitapp.card;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class Card {
 
-    @NotNull(message = "Surname cannot be null.")
+    @NotEmpty(message = "Surname cannot be empty.")
     private String surname;
     private int overall;
     @NotNull(message = "Choose your card type.")

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class DealController {
     public String showDeals(Model model, @RequestParam Optional<String> surname){
 
         List<Deal> list = dealService.getDeals(surname);
+        System.out.println(model.getAttribute("org.springframework.validation.BindingResult.deal"));
         double totalProfit = dealService.calculateTotalProfit(list);
         Deal deal = Optional.ofNullable((Deal)model.getAttribute("deal")).orElse(new Deal());
         model.addAttribute("deal", deal);
@@ -46,6 +48,7 @@ public class DealController {
 
         if(result.hasErrors()){
             redirectAttributes.addFlashAttribute("deal", deal);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.deal", result);
             return "redirect:/deals";
         }
         dealService.saveDeal(deal);
