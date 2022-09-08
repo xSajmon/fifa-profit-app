@@ -50,6 +50,8 @@ public class DealController {
         model.addAttribute("sum", totalProfit);
         model.addAttribute("num", list.size());
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", pageable.getPageNumber());
+        System.out.println(pageable.getPageNumber());
         return "deals";
     }
 

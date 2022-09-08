@@ -212,7 +212,10 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link" href="#" th:if="${currentPage}>0" th:href="@{/deals(page=${currentPage}-1)}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        <a class="page-link disabled" href="#" th:if="${currentPage}<1 " aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -222,7 +225,10 @@
 
                     </div>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="#" th:if="${currentPage+1} < ${totalPages}" th:href="@{/deals(page=${currentPage}+1)}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        <a class="page-link disabled" href="#" th:if="${currentPage+1} == ${totalPages} " aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
