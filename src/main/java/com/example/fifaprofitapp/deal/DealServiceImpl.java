@@ -27,6 +27,11 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
+    public Page<Deal> getDeals(Optional<String> name, Pageable pageable) {
+        return (name.isPresent() ? dealRepository.findAllByCardSurname(name.get(), pageable) : dealRepository.findAll(pageable));
+    }
+
+    @Override
     public double calculateTotalProfit(List<Deal> dealList){
         return dealList.stream().mapToDouble(Deal::getProfit).sum();
     }
@@ -55,19 +60,4 @@ public class DealServiceImpl implements DealService {
         dealRepository.deleteById(id);
     }
 
-
-
-
-    @Override
-    public Page<Deal> findPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-        return dealRepository.findAll(pageable);
-    }
-
-    @Override
-    public Page<Deal> findPaginatedByPlayer(String surname, int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-        return  dealRepository.findAllByCardSurname(surname, pageable);
-
-    }
 }

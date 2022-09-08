@@ -2,6 +2,7 @@ package com.example.fifaprofitapp.deal;
 
 import com.example.fifaprofitapp.deal.Deal;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.Optional;
 public interface DealService {
 
     List<Deal> getDeals(Optional<String> name);
+    Page<Deal> getDeals(Optional<String> name, Pageable pageable);
     double calculateTotalProfit(List<Deal> dealList);
     Deal findDealById(Long id);
 
@@ -24,12 +26,4 @@ public interface DealService {
 
 
 
-
-
-
-
-
-    Page<Deal> findPaginated(int pageNum, int pageSize);
-
-    Page<Deal> findPaginatedByPlayer(String surname, int pageNo, int pageSize);
 }

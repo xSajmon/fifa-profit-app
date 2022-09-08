@@ -3,6 +3,9 @@ package com.example.fifaprofitapp.deal;
 
 import com.example.fifaprofitapp.card.CardType;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Controller
@@ -27,16 +31,25 @@ public class DealController {
     }
 
     @GetMapping
-    public String showDeals(Model model, @RequestParam Optional<String> surname){
+    public String showDeals(Model model, @RequestParam Optional<String> surname,
+                            @RequestParam(defaultValue = "0") int page,
+                            @RequestParam(defaultValue = "3") int size){
 
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Deal> dealPage = dealService.getDeals(surname, pageable);
+        int totalPages = dealPage.getTotalPages();
+        if(totalPages>0){
+            List<Integer> pageList = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageList", pageList);
+        }
         List<Deal> list = dealService.getDeals(surname);
-        System.out.println(model.getAttribute("org.springframework.validation.BindingResult.deal"));
         double totalProfit = dealService.calculateTotalProfit(list);
         Deal deal = Optional.ofNullable((Deal)model.getAttribute("deal")).orElse(new Deal());
         model.addAttribute("deal", deal);
-        model.addAttribute("deals", list);
+        model.addAttribute("deals", dealPage);
         model.addAttribute("sum", totalProfit);
         model.addAttribute("num", list.size());
+        model.addAttribute("totalPages", totalPages);
         return "deals";
     }
 
