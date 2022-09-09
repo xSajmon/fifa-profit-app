@@ -210,18 +210,18 @@
                 </tfoot>
             </table>
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
+                <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" href="#" th:if="${currentPage}>0" th:href="@{/deals(page=${currentPage}-1)}" aria-label="Previous">
+                        <a class="page-link" href="#" th:if="${currentPage}>0 AND ${totalPages} > 0" th:href="@{/deals(page=${currentPage}-1)}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
-                        <a class="page-link disabled" href="#" th:if="${currentPage}<1 " aria-label="Previous">
+                        <a class="page-link disabled" href="#" th:if="${currentPage<1} AND ${totalPages} > 0" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <div th:if="${totalPages}>0"
-                         th:each="number: ${pageList}">
-                        <li class="page-item"><a class="page-link" th:href="@{/deals(page=${number}-1)}" th:text="*{number}">1</a></li>
+                    <div th:if="${totalPages}>0" th:each="number: ${pageList}">
+                        <li class="page-item" th:classappend="${ (number)-1 == currentPage ? 'active' : '' }"><a class="page-link rounded-0" th:unless="${param.keySet().contains('surname')}" th:href="@{/deals(page=${number}-1)}" th:text="*{number}"></a></li>
+                        <li class="page-item " th:classappend="${ (number)-1 == currentPage ? 'active' : '' }"><a class="page-link rounded-0" th:if="${param.keySet().contains('surname')}" th:href="@{/deals(surname=${param.surname}, page=${number}-1)}" th:text="*{number}"></a></li>
 
                     </div>
                     <li class="page-item">
