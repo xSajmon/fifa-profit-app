@@ -90,20 +90,20 @@
         </fieldset>
     </div>
 
-    <div class="float-left ml-5">
+    <div class="float-left ml-5 w-75">
         <fieldset class="border p-3">
             <legend class="w-auto float-none text-secondary">DEAL LIST</legend>
 
             <table class="table table-hover table-bordered text-center rounded rounded-2 overflow-hidden">
                 <thead class="table-dark text-nowrap">
                 <tr>
-                    <th>ID</th>
-                    <th>Player Name</th>
-                    <th>Version</th>
-                    <th>Bought</th>
-                    <th>Sold</th>
+                    <th class="col-1">ID</th>
+                    <th class="col-3">Player Name</th>
+                    <th class="col-2">Version</th>
+                    <th class="col-1">Bought</th>
+                    <th class="col-1">Sold</th>
                     <th>Sale Date</th>
-                    <th>Profit</th>
+                    <th class="col-1">Profit</th>
                     <th>Operation</th>
                 </tr>
                 </thead>
@@ -120,7 +120,7 @@
                         <span th:unless="${deal.profit} > 0" th:text="${deal.profit}" class="text-danger"></span>
                     </td>
                     <td>
-                        <div class="col d-flex mx-2">
+                        <div class="col d-flex mx-2 justify-content-center">
                             <a th:href="@{/deals/{id}(id=${deal.id})}"
                                class="btn btn-primary btn-sm float-start me-2 mBtn">Modify</a>
                             <!-- Modal -->
