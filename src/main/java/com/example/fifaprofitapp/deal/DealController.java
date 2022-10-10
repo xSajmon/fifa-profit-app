@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,22 +35,23 @@ public class DealController {
                             @RequestParam(defaultValue = "3") int size){
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<Deal> dealPage = dealService.getDeals(surname, pageable);
+        Page<Deal> dealPage = dealService.getCompletedDeals(surname, pageable);
         int totalPages = dealPage.getTotalPages();
         if(totalPages>0){
             List<Integer> pageList = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageList", pageList);
         }
-        List<Deal> list = dealService.getDeals(surname);
-        double totalProfit = dealService.calculateTotalProfit(list);
+        List<Deal> completedDeals = dealService.getCompletedDeals(surname);
+        List<Deal> uncompletedDeals = dealService.getUncompletedDeals();
+        double totalProfit = dealService.calculateTotalProfit(completedDeals);
         Deal deal = Optional.ofNullable((Deal)model.getAttribute("deal")).orElse(new Deal());
         model.addAttribute("deal", deal);
         model.addAttribute("deals", dealPage);
+        model.addAttribute("uDeals", uncompletedDeals);
         model.addAttribute("sum", totalProfit);
-        model.addAttribute("num", list.size());
+        model.addAttribute("num", completedDeals.size());
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", pageable.getPageNumber());
-        System.out.println(pageable.getPageNumber());
         return "deals";
     }
 
@@ -80,8 +80,17 @@ public class DealController {
     @PutMapping("/update/{id}")
     public String updateDeal(@PathVariable Long id, @RequestBody Deal deal){
         Deal toUpdate = dealService.findDealById(id);
-        BeanUtils.copyProperties(deal, toUpdate, "id", "saleDate");
+        BeanUtils.copyProperties(deal, toUpdate, "id", "saleDate", "completed");
         dealService.saveDeal(toUpdate);
+        return "redirect:/deals";
+    }
+
+    @PatchMapping("/update/{id}")
+    public String setAsCompleted(@PathVariable Long id, @ModelAttribute("sellingPrice") double sellingPrice){
+        Deal deal = dealService.findDealById(id);
+        deal.setCompleted(true);
+        deal.setSellingPrice(sellingPrice);
+        dealService.saveDeal(deal);
         return "redirect:/deals";
     }
 

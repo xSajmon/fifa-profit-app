@@ -30,7 +30,7 @@ $(document).ready(function () {
                 cardType: $("#modalType").val()
             },
             buyingPrice: $("#modalBp").val(),
-            sellingPrice: $("#modalSp").val()
+            sellingPrice: $("#modalSp").val(),
         };
 
         $.ajax({

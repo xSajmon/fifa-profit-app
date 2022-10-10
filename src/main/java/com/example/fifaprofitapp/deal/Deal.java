@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
 public class Deal {
 
@@ -43,6 +42,12 @@ public class Deal {
     private double sellingPrice;
     @Transient
     private double profit;
+    private boolean completed;
+
+
+    public Deal() {
+        completed = false;
+ }
 
     public Deal(Long id, Card card, int buyingPrice, int sellingPrice) {
         this.id = id;
@@ -57,8 +62,4 @@ public class Deal {
         return vd.doubleValue();
 
     }
-
-
-
-
 }

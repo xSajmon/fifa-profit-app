@@ -1,6 +1,5 @@
 package com.example.fifaprofitapp.deal;
 
-import com.example.fifaprofitapp.deal.Deal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
@@ -21,7 +20,8 @@ public interface DealRepository extends CrudRepository<Deal, Long> {
     Deal findDealById(Long id);
 
     void deleteById(Long id);
+    Page<Deal> findAllByCompletedTrue(Pageable pageable);
+    Page<Deal> findAllByCardSurnameAndCompletedTrue(String surname, Pageable pageable);
 
-    Page<Deal> findAll(Pageable pageable);
-    Page<Deal> findAllByCardSurname(String surname, Pageable pageable);
+    List<Deal> findAllByCompletedFalse();
 }

@@ -1,10 +1,6 @@
 package com.example.fifaprofitapp.deal;
 
-import com.example.fifaprofitapp.deal.Deal;
-import com.example.fifaprofitapp.deal.DealRepository;
-import com.example.fifaprofitapp.deal.DealService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +18,18 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public List<Deal> getDeals(Optional<String> name) {
+    public List<Deal> getCompletedDeals(Optional<String> name) {
         return (name.isPresent() ? dealRepository.findAllByCardSurname(name.get()) : dealRepository.findAll());
     }
 
     @Override
-    public Page<Deal> getDeals(Optional<String> name, Pageable pageable) {
-        return (name.isPresent() ? dealRepository.findAllByCardSurname(name.get(), pageable) : dealRepository.findAll(pageable));
+    public Page<Deal> getCompletedDeals(Optional<String> name, Pageable pageable) {
+        return (name.isPresent() ? dealRepository.findAllByCardSurnameAndCompletedTrue(name.get(), pageable) : dealRepository.findAllByCompletedTrue(pageable));
+    }
+
+    @Override
+    public List<Deal> getUncompletedDeals() {
+        return dealRepository.findAllByCompletedFalse();
     }
 
     @Override
