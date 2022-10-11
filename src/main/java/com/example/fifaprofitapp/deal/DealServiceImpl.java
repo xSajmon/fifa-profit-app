@@ -19,7 +19,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<Deal> getCompletedDeals(Optional<String> name) {
-        return (name.isPresent() ? dealRepository.findAllByCardSurname(name.get()) : dealRepository.findAll());
+        return (name.isPresent() ? dealRepository.findAllByCardSurnameAndCompletedTrue(name.get()) : dealRepository.findAllByCompletedTrue());
     }
 
     @Override

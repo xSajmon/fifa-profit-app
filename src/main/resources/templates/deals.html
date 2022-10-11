@@ -7,10 +7,17 @@
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
     <style>
-        .Amod{
-            line-height:30px;
+        .Amod {
+            line-height: 30px;
             height: 30px;
             padding: 0 15px;
+        }
+        .h-58 {
+            height: 58px;
+        }
+        .scrollDiv {
+            height: 100vh;
+            overflow: auto;
         }
     </style>
 </head>
@@ -26,16 +33,16 @@
             <legend class="w-auto float-none text-secondary">INSERT DATA</legend>
             <form action="#" th:action="@{/deals}" method="post" th:object="${deal}">
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" th:field="*{card.surname}" id="surname"
-                           placeholder="surname"/>
-                    <label class="form-label" for="surname">Surname</label>
+                    <input type="text" class="form-control form-control-sm" th:field="*{card.surname}" id="surname"/>
+                    <label class="form-label" for="surname">SURNAME</label>
 
                 </div>
-                <p class="alert alert-danger Amod" th:if="${#fields.hasErrors('card.surname')}" th:errors="*{card.surname}" ></p>
+                <p class="alert alert-danger Amod" th:if="${#fields.hasErrors('card.surname')}"
+                   th:errors="*{card.surname}"></p>
                 <div class="input-group mb-2">
                     <span class="input-group-text">Rating:</span>
                     <select th:field="*{card.overall}" class="form-control form-control-sm" id="rating">
-                        <option th:each="i: ${#numbers.sequence(99,75)}" th:value="${i}"
+                        <option th:each="i: ${#numbers.sequence(99,82)}" th:value="${i}"
                                 th:text="${i}"></option>
                     </select>
                     <span class="input-group-text">Type:</span>
@@ -45,22 +52,20 @@
                                 th:value="${type}" th:text="${type}"></option>
                     </select>
                 </div>
-                <p class="alert alert-danger Amod" th:if="${#fields.hasErrors('card.cardType')}" th:errors="*{card.cardType}" ></p>
+                <p class="alert alert-danger Amod" th:if="${#fields.hasErrors('card.cardType')}"
+                   th:errors="*{card.cardType}"></p>
 
 
                 <div class="input-group mb-2">
                     <span class="input-group-text">Bought: </span>
                     <input type="number" step="any" class="form-control form-control-sm"
                            th:field="*{buyingPrice}"/>
-                    <span class="input-group-text">Sold:</span>
-                    <input type="number" step="any" class="form-control form-control-sm"
-                           th:field="*{sellingPrice}"/>
                 </div>
-                <div class="alert alert-danger py-0" th:if="${#fields.hasErrors('buyingPrice')} OR ${#fields.hasErrors('sellingPrice')}">
+                <div class="alert alert-danger py-0"
+                     th:if="${#fields.hasErrors('buyingPrice')} OR ${#fields.hasErrors('sellingPrice')}">
                     <p class="m-0" th:errors="*{buyingPrice}"></p>
-                    <p class="m-0" th:errors="*{sellingPrice}" ></p>
+                    <p class="m-0" th:errors="*{sellingPrice}"></p>
                 </div>
-
 
 
                 <div class="text-center">
@@ -108,7 +113,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="deal : ${deals}"  class="align-middle">
+                <tr th:each="deal : ${deals}" class="align-middle">
                     <td th:text="${deal.id}+'.'"></td>
                     <td th:text="${deal.card.surname}"></td>
                     <td th:text="${deal.card.cardType}"></td>
@@ -152,7 +157,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">Rating:</span>
                                                     <select class="form-control form-control-sm " id="modalRating">
-                                                        <option th:each="i: ${#numbers.sequence(99,75)}" th:value="${i}"
+                                                        <option th:each="i: ${#numbers.sequence(95,82)}" th:value="${i}"
                                                                 th:text="${i}"></option>
                                                     </select>
                                                     <span class="input-group-text">Type:</span>
@@ -200,7 +205,7 @@
                 <tr class="table table-dark">
                     <td colspan="8">
                         <i class="bi bi-person-check-fill float-start pe-2"></i>
-                        <span th:text="'| Number of records: ' + ${num}" class="float-start pl-1"></span>
+                        <span th:text="'| Number of completed transactions: ' + ${num}" class="float-start pl-1"></span>
 
                         <span th:text="' | Total profit ' +  ${sum} + 'k'" class="float-end"></span>
                         <i class="bi bi-wallet-fill float-end pe-2"></i>
@@ -211,33 +216,43 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" href="#" th:if="${currentPage}>0 AND ${totalPages} > 0" th:href="@{/deals(page=${currentPage}-1)}" aria-label="Previous">
+                        <a class="page-link" href="#" th:if="${currentPage}>0 AND ${totalPages} > 0"
+                           th:href="@{/deals(page=${currentPage}-1)}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
-                        <a class="page-link disabled" href="#" th:if="${currentPage<1} AND ${totalPages} > 0" aria-label="Previous">
+                        <a class="page-link disabled" href="#" th:if="${currentPage<1} AND ${totalPages} > 0"
+                           aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <div th:if="${totalPages}>0" th:each="number: ${pageList}">
-                        <li class="page-item" th:classappend="${ (number)-1 == currentPage ? 'active' : '' }"><a class="page-link rounded-0" th:unless="${param.keySet().contains('surname')}" th:href="@{/deals(page=${number}-1)}" th:text="*{number}"></a></li>
-                        <li class="page-item " th:classappend="${ (number)-1 == currentPage ? 'active' : '' }"><a class="page-link rounded-0" th:if="${param.keySet().contains('surname')}" th:href="@{/deals(surname=${param.surname}, page=${number}-1)}" th:text="*{number}"></a></li>
+                        <li class="page-item" th:classappend="${ (number)-1 == currentPage ? 'active' : '' }"><a
+                                class="page-link rounded-0" th:unless="${param.keySet().contains('surname')}"
+                                th:href="@{/deals(page=${number}-1)}" th:text="*{number}"></a></li>
+                        <li class="page-item " th:classappend="${ (number)-1 == currentPage ? 'active' : '' }"><a
+                                class="page-link rounded-0" th:if="${param.keySet().contains('surname')}"
+                                th:href="@{/deals(surname=${param.surname}, page=${number}-1)}" th:text="*{number}"></a>
+                        </li>
 
                     </div>
                     <li class="page-item">
-                        <a class="page-link" href="#" th:if="${currentPage+1} < ${totalPages}" th:href="@{/deals(page=${currentPage}+1)}" aria-label="Next">
+                        <a class="page-link" href="#" th:if="${currentPage+1} < ${totalPages}"
+                           th:href="@{/deals(page=${currentPage}+1)}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
-                        <a class="page-link disabled" href="#" th:if="${currentPage+1} == ${totalPages} " aria-label="Next">
+                        <a class="page-link disabled" href="#" th:if="${currentPage+1} == ${totalPages} "
+                           aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
         </fieldset>
+        <div class="scrollDiv">
         <fieldset class="border p-3">
             <legend class="w-auto float-none text-secondary">ACTIVE TRADES</legend>
-                <form th:each="uDeal : ${uDeals}" action="#" th:action="@{/deals/update/{id}(id=${uDeal.id})}"  th:method="patch" th:object="${uDeal}">
-                <div class="input-group input-group-sm w-50">
+                <form th:each="uDeal : ${uDeals}" action="#" th:action="@{/deals/update/{id}(id=${uDeal.id})}"  th:method="patch" th:object="${uDeal}" class="float-start w-50 overflow-auto h-50">
+                <div class="input-group input-group-sm w-100 p-2 float-start">
                 <p class="input-group-text w-50 ">
                     <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mx-1" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
@@ -246,9 +261,9 @@
                 </p>
                 <p class="form-floating">
                     <input type="number" step="any" class="form-control form-control-sm" id="price" name="sellingPrice"/>
-                    <label class="form-label" for="price" th:text="${uDeal.buyingPrice} + k"/>
+                    <label class="form-label" for="price" th:text="'Bought for   ' + ${uDeal.buyingPrice} + k"/>
                 </p>
-                <button type="submit" class="btn btn-success h-100">
+                <button type="submit" class="btn btn-success h-58">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -257,6 +272,7 @@
                 </div>
                 </form>
         </fieldset>
+        </div>
     </div>
 
 </div>

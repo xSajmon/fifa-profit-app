@@ -32,7 +32,7 @@ public class DealController {
     @GetMapping
     public String showDeals(Model model, @RequestParam Optional<String> surname,
                             @RequestParam(defaultValue = "0") int page,
-                            @RequestParam(defaultValue = "3") int size){
+                            @RequestParam(defaultValue = "10") int size){
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Deal> dealPage = dealService.getCompletedDeals(surname, pageable);
@@ -86,7 +86,7 @@ public class DealController {
     }
 
     @PatchMapping("/update/{id}")
-    public String setAsCompleted(@PathVariable Long id, @ModelAttribute("sellingPrice") double sellingPrice){
+    public String setAsCompleted(@PathVariable Long id, @ModelAttribute("sellingPrice") int sellingPrice){
         Deal deal = dealService.findDealById(id);
         deal.setCompleted(true);
         deal.setSellingPrice(sellingPrice);

@@ -35,11 +35,11 @@ public class Deal {
     @NotNull(message = "Enter buying price.")
     @Positive(message = "Incorrect buying price.")
     @Digits(integer = 4, fraction = 2)
-    private double buyingPrice;
+    private int buyingPrice;
     @NotNull(message = "Enter selling price.")
     @Positive(message = "Incorrect selling price.")
     @Digits(integer = 4, fraction = 2)
-    private double sellingPrice;
+    private int sellingPrice;
     @Transient
     private double profit;
     private boolean completed;
