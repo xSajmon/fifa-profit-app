@@ -33,6 +33,11 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
+    public List<Deal> getAllDeals() {
+        return dealRepository.findAll();
+    }
+
+    @Override
     public double calculateTotalProfit(List<Deal> dealList){
         return dealList.stream().mapToDouble(Deal::getProfit).sum();
     }

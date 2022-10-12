@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +35,7 @@ public class DealController {
                             @RequestParam(defaultValue = "0") int page,
                             @RequestParam(defaultValue = "10") int size){
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("saleDate").descending());
         Page<Deal> dealPage = dealService.getCompletedDeals(surname, pageable);
         int totalPages = dealPage.getTotalPages();
         if(totalPages>0){

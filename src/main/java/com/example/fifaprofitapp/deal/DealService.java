@@ -12,6 +12,8 @@ public interface DealService {
     List<Deal> getCompletedDeals(Optional<String> name);
     Page<Deal> getCompletedDeals(Optional<String> name, Pageable pageable);
     List<Deal> getUncompletedDeals();
+
+    List<Deal> getAllDeals();
     double calculateTotalProfit(List<Deal> dealList);
     Deal findDealById(Long id);
 

@@ -20,14 +20,10 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Deal {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Valid
     @Embedded
     private Card card;
@@ -37,29 +33,20 @@ public class Deal {
     @Digits(integer = 4, fraction = 2)
     private int buyingPrice;
     @NotNull(message = "Enter selling price.")
-    @Positive(message = "Incorrect selling price.")
-    @Digits(integer = 4, fraction = 2)
     private int sellingPrice;
+    private boolean completed;
     @Transient
     private double profit;
-    private boolean completed;
-
 
     public Deal() {
         completed = false;
+        sellingPrice = 0;
  }
-
-    public Deal(Long id, Card card, int buyingPrice, int sellingPrice) {
-        this.id = id;
-        this.card = card;
-        this.buyingPrice = buyingPrice;
-        this.sellingPrice = sellingPrice;
-    }
 
     public double getProfit() {
         double x = sellingPrice * 0.95 - buyingPrice;
         BigDecimal vd = new BigDecimal(x).setScale(2, RoundingMode.HALF_UP);
         return vd.doubleValue();
-
     }
+
 }
