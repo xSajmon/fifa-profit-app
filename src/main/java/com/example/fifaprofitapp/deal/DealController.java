@@ -44,12 +44,12 @@ public class DealController {
         }
         List<Deal> completedDeals = dealService.getCompletedDeals(surname);
         List<Deal> uncompletedDeals = dealService.getUncompletedDeals();
-        double totalProfit = dealService.calculateTotalProfit(completedDeals);
         Deal deal = Optional.ofNullable((Deal)model.getAttribute("deal")).orElse(new Deal());
         model.addAttribute("deal", deal);
         model.addAttribute("deals", dealPage);
         model.addAttribute("uDeals", uncompletedDeals);
-        model.addAttribute("sum", totalProfit);
+        model.addAttribute("sum", dealService.calculateTotalProfit(surname));
+        model.addAttribute("invested", dealService.calculateInvestedCoins());
         model.addAttribute("num", completedDeals.size());
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", pageable.getPageNumber());
@@ -91,6 +91,7 @@ public class DealController {
         Deal deal = dealService.findDealById(id);
         deal.setCompleted(true);
         deal.setSellingPrice(sellingPrice);
+        deal.setSaleDate();
         dealService.saveDeal(deal);
         return "redirect:/deals";
     }

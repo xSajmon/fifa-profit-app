@@ -14,7 +14,8 @@ public interface DealService {
     List<Deal> getUncompletedDeals();
 
     List<Deal> getAllDeals();
-    double calculateTotalProfit(List<Deal> dealList);
+    double calculateTotalProfit(Optional<String> name);
+    int calculateInvestedCoins();
     Deal findDealById(Long id);
 
     void saveDeal(Deal deal);

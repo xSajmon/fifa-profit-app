@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +40,14 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public double calculateTotalProfit(List<Deal> dealList){
-        return dealList.stream().mapToDouble(Deal::getProfit).sum();
+    public double calculateTotalProfit(Optional<String> name){
+        double profit = getCompletedDeals(name).stream().mapToDouble(Deal::getProfit).sum();
+        return new BigDecimal(profit).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    @Override
+    public int calculateInvestedCoins() {
+        return getUncompletedDeals().stream().mapToInt(Deal::getBuyingPrice).sum();
     }
 
     public Deal findDealById(Long id){

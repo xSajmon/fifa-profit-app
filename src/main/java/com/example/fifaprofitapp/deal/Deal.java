@@ -27,7 +27,7 @@ public class Deal {
     @Valid
     @Embedded
     private Card card;
-    private String saleDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
+    private String saleDate;
     @NotNull(message = "Enter buying price.")
     @Positive(message = "Incorrect buying price.")
     @Digits(integer = 4, fraction = 2)
@@ -41,6 +41,7 @@ public class Deal {
     public Deal() {
         completed = false;
         sellingPrice = 0;
+        saleDate = null;
  }
 
     public double getProfit() {
@@ -48,5 +49,7 @@ public class Deal {
         BigDecimal vd = new BigDecimal(x).setScale(2, RoundingMode.HALF_UP);
         return vd.doubleValue();
     }
-
+    public void setSaleDate() {
+        this.saleDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
+    }
 }
