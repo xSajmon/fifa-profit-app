@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/java/com/example/fifaprofitapp/Test.java
+src/main/resources/META-INF/MANIFEST.MF
+out
 ### STS ###
 .apt_generated
 .classpath

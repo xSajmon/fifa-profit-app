@@ -11,14 +11,12 @@ import java.math.RoundingMode;
 @Data
 public class DealDto {
 
-    private String cardSurname;
-    private int cardRating;
+    private String cardName;
     private String cardType;
     private String saleDate;
     private int buyingPrice;
     private int sellingPrice;
     private boolean isCompleted;
     private double profit;
-
 
 }
